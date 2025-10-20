@@ -69,14 +69,13 @@ jobs:
           fi
 
           # Create release notes
-          RELEASE_NOTES="## What's Changed
+          cat > release_notes.md <<EOF
+          ## What's Changed
 
-$COMMITS
+          $COMMITS
 
-**Full Changelog**: https://github.com/${{ github.repository }}/compare/${LATEST_TAG}...${NEW_VERSION}"
-
-          # Save to file to handle multiline
-          echo "$RELEASE_NOTES" > release_notes.md
+          **Full Changelog**: https://github.com/${{ github.repository }}/compare/${LATEST_TAG}...${NEW_VERSION}
+          EOF
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
